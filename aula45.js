@@ -1,4 +1,3 @@
-/*
 const caixaCursos = document.querySelector('#caixaCursos')//acessando caixaCursos
 const cursos = ['HTML', 'CSS', 'Javascript', 'PHP', 'React', 'MySQL', 'ReactNative']//criando lista elementos
 const btnCursoSelecionado = document.getElementById('btnCursoSelecionado')//acessando id btnCursoSelecionado
@@ -93,8 +92,6 @@ btnAdicionarNovoCursoDepois.addEventListener('click', (evt)=>{//evento criado pa
         alert('Selecione um curso')
     }
 })
-*/
-
 
 //parentNode -> nó pai
 //childNodes[nodenumber] -> nos filhos
@@ -103,100 +100,3 @@ btnAdicionarNovoCursoDepois.addEventListener('click', (evt)=>{//evento criado pa
 //nextSibling -> proximo irmão
 //previousSibling -> irmão anterior
 
-const caixa=document.getElementById('caixaCursos')
-const btnCursoSelecionado=document.getElementById('btnCursoSelecionado')
-const removerSelecionado=document.getElementById('btnRemoverCurso')
-const adicionarDepois=document.getElementById('btnAdicionarNovoCursoDepois')
-const adicionarAntes=document.getElementById('btnAdicionarNovoCursoAntes')
-const nomeCurso=document.getElementById('nomeCurso')
-const cursos=['HTML','Javascript','CSS','Nodejs','React','Angular']
-
-//criando elementos para a caixa -> div -> div -> input radio
-
-const criarNovoCurso=(el,ind)=>{
-    const novoElemento=document.createElement('div')
-    novoElemento.setAttribute('id','c'+ind)
-    novoElemento.setAttribute('class','curso c1')
-
-    const comandos=document.createElement('div')
-    comandos.setAttribute('class','comandos')
-
-    const rb=document.createElement('input')
-    rb.setAttribute('type','radio')
-    rb.setAttribute('name','rb_curso')
-    
-    novoElemento.innerHTML = el
-
-    caixa.appendChild(novoElemento)
-    novoElemento.appendChild(comandos)
-    comandos.appendChild(rb)
-
-    return novoElemento
-
-}
-
-cursos.map((el,ind)=>{//percorrer todos os cursos criados
-    const novoElemento=criarNovoCurso(el,ind)
-})
-
-// descobrindo qual curso está selecionado
-const radioSelecionado=()=>{
-    const todosRadios=[...document.querySelectorAll('input[type=radio]')]
-    const radioSelecionado=todosRadios.filter((el,ind,arr)=>{
-        return el.checked
-    })
-    return radioSelecionado[0]
-}
-
-// criando evento selecionado
-btnCursoSelecionado.addEventListener('click',(evt)=>{//evento não precisa de const
-    const rs = radioSelecionado()
-    if(rs != undefined){
-    const cursoSelecionado = rs.parentNode.parentNode.textContent
-    alert('curso Selecionado: ' + cursoSelecionado)
-    }else{
-        alert('Selecione um curso ')
-    }
-})
-
-// criando evento de remoção
-removerSelecionado.addEventListener('click',(evt)=>{
-    const rs = radioSelecionado()
-    if(rs != undefined){
-    const cursoSelecionado = rs.parentElement.parentNode
-    cursoSelecionado.remove()
-    }else{
-        alert('Selecione um curso')
-    }
-})
-
-// criando evento adicionar antes
-adicionarAntes.addEventListener('click',(evt)=>{
-    const rs = radioSelecionado()//chamando função input selecionado "checked"
-    if(rs != undefined){
-    if(nomeCurso.value != ""){
-    const cursoSelecionado = rs.parentElement.parentNode//acessando div pai da caixa que o rs foi selecionado
-    const novoCurso = criarNovoCurso(nomeCurso.value)//chamando função dos elementos,colocando valor no nome curso
-    caixaCursos.insertBefore(novoCurso,cursoSelecionado)//na caixa inserindo depois antes do selecionado o
-    }else{
-        alert('Digite um curso')
-    }
-    }else{
-        alert('Selecione um curso')
-    }
-})
-
-adicionarDepois.addEventListener('click',(evt)=>{
-    const rs = radioSelecionado()//chamando função input selecionado "checked"
-    if(rs != undefined){
-    if(nomeCurso.value != ""){
-    const cursoSelecionado = rs.parentElement.parentNode//acessando div pai da caixa que o rs foi selecionado
-    const novoCurso = criarNovoCurso(nomeCurso.value)//chamando função dos elementos,colocando valor no nome curso
-    caixaCursos.insertBefore(novoCurso,cursoSelecionado.nextSibling)//na caixa inserindo depois antes do selecionado o
-    }else{
-        alert('Digite um curso')
-    }
-    }else{
-        alert('Selecione um curso')
-    }
-})
